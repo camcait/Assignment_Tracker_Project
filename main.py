@@ -23,6 +23,11 @@ class State:
 
 # Navigation buttons used throughout the website
 def navigation():
+    '''
+This function is the main organization for
+all of the buttons on the homepage of the website
+Inputs are the user clikcing the buttons listed below.
+'''
     return [
         Button("Home", "index"),
         Button("Add Assignment", "add_assignment"),
@@ -35,6 +40,16 @@ def navigation():
 
 # Displays assignments based on the selected filter
 def assignment_page(state: State, show_all: bool = False) -> Page:
+    '''
+This function is the basis of the assignment page. It presents the assignment
+page header, along with all inputs.
+Args:
+state: State
+show_all: a list of the assignments that start with an uncomplete status
+
+Return:
+returns the assignment page
+'''
     content = [
         Header(state.page_title),
         state.message,
@@ -86,6 +101,10 @@ def assignment_page(state: State, show_all: bool = False) -> Page:
 @route
 def index(state: State) -> Page:
     state.page_title = "Student Assignment Tracker"
+    '''
+This route defines the homepage. This is where all the buttons
+are located for the user to click.
+'''
 
     return Page(state, [
         Header(state.page_title),
@@ -104,6 +123,17 @@ def index(state: State) -> Page:
 # ROUTE 2: Add assignment page
 @route
 def add_assignment(state: State) -> Page:
+    ''' This function takes in user input to create a list
+of assignments.
+
+Args:
+state: State
+
+Return:
+A page
+
+
+'''
     state.page_title = "Add a New Assignment"
 
     return Page(state, [
@@ -139,6 +169,18 @@ def save_assignment(
     subject: str,
     already_completed: bool
 ) -> Page:
+    '''
+This function creates a way to save the new inputted information
+
+Args:
+state: State
+new_assignment: a string title of an assignment
+subject: the subject of the assignment
+already_completed: whether the assignment is complete or not
+
+Return:
+A page
+'''
 
     state.new_assignment = new_assignment
 
@@ -166,6 +208,9 @@ def save_assignment(
 # ROUTE 4: View all assignments
 @route
 def view_assignments(state: State) -> Page:
+    '''
+This route allows the user to view the new list of assignments they just inputted.
+'''
     state.page_title = "All Assignments"
     return assignment_page(state, True)
 
@@ -173,6 +218,15 @@ def view_assignments(state: State) -> Page:
 # ROUTE 5: Mark an assignment as finished
 @route
 def mark_finished(state: State, assignment_index: int) -> Page:
+    '''
+This route allows the user to mark an assignment as completed.
+Args:
+state: State
+assignment_index: the index value of the assignment
+
+Return:
+A page
+'''
 
     # Make sure the assignment index is valid
     if 0 <= assignment_index < len(state.assignments):
@@ -188,6 +242,9 @@ def mark_finished(state: State, assignment_index: int) -> Page:
 # ROUTE 6: View incomplete assignments
 @route
 def view_incomplete(state: State) -> Page:
+    '''This route allows the user to view a list of incomplete
+assignments only
+'''
     state.page_title = "Incomplete Assignments"
     state.show_completed = False
     state.message = ""
@@ -198,6 +255,9 @@ def view_incomplete(state: State) -> Page:
 # ROUTE 7: View completed assignments
 @route
 def view_complete(state: State) -> Page:
+    '''This route allows the user to view a list of complete
+assignments only
+'''
     state.page_title = "Completed Assignments"
     state.show_completed = True
     state.message = ""
