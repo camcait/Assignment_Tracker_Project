@@ -1,0 +1,118 @@
+from drafter import *
+def make_state():
+    return State(
+        assignments=[],
+        new_assignment="",
+        page_title="Student Assignment Tracker",
+        show_completed=False,
+        message=""
+    )
+    
+def test_index():
+    state = make_state()
+
+    page = index(state)
+
+    assert state.page_title == "Student Assignment Tracker"
+    assert page.state == state
+    
+def test_add_assignment():
+    state = make_state()
+
+    page = add_assignment(state)
+
+    assert state.page_title == "Add a New Assignment"
+    assert page.state == state
+    
+def test_save_assignment():
+    state = make_state()
+
+    page = save_assignment(
+        state,
+        "Math Homework",
+        "Math",
+        False
+    )
+
+    assert len(state.assignments) == 1
+    assert state.assignments[0].name == "Math Homework"
+    assert state.assignments[0].subject == "Math"
+    assert state.assignments[0].completed == False
+    assert state.new_assignment == ""
+    
+def test_save_empty_assignment():
+    state = make_state()
+
+    page = save_assignment(state, "", "Math", False)
+
+    assert len(state.assignments) == 0
+    assert state.message == "Error: Please enter an assignment name!"
+    
+def test_view_assignments():
+    state = make_state()
+
+    state.assignments.append(
+        Assignment("Math Homework", False, "Math")
+    )
+
+    page = view_assignments(state)
+
+    assert state.page_title == "All Assignments"
+    assert len(state.assignments) == 1
+    assert page is not None
+def test_mark_finished():
+    state = make_state()
+
+    state.assignments.append(
+        Assignment("English Essay", False, "English")
+    )
+
+    page = mark_finished(state, 0)
+
+    assert state.assignments[0].completed == True
+    assert state.message == "Assignment marked as completed!"
+    assert state.page_title == "All Assignments"
+    
+def test_mark_finished_invalid():
+    state = make_state()
+
+    page = mark_finished(state, 5)
+
+    assert len(state.assignments) == 0
+    assert page is not None
+    
+def test_view_incomplete():
+    state = make_state()
+
+    state.assignments.append(
+        Assignment("Math Homework", False, "Math")
+    )
+
+    state.assignments.append(
+        Assignment("English Essay", True, "English")
+    )
+
+    page = view_incomplete(state)
+
+    assert state.page_title == "Incomplete Assignments"
+    assert state.show_completed == False
+    assert state.message == ""
+    assert page is not None
+    
+def test_view_complete():
+    state = make_state()
+
+    state.assignments.append(
+        Assignment("Math Homework", False, "Math")
+    )
+
+    state.assignments.append(
+        Assignment("English Essay", True, "English")
+    )
+
+    page = view_complete(state)
+
+    assert state.page_title == "Completed Assignments"
+    assert state.show_completed == True
+    assert state.message == ""
+    assert page is not None
