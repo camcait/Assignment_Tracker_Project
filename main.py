@@ -7,7 +7,7 @@ from dataclasses import dataclass
 hide_debug_information()
 set_website_title("Assignment Tracker")
 set_website_framed(False)
-set_site_information(author = "Caitlin Cammett", description = "Assignment Tracker to help students stay organized", sources = ["https://chatgpt.com/"], planning = ["Caitlin Cammett CS1 Final Project 1: Design","LLM Documentation", "Caitlin Cammett CS1 Final Project 0: Pick a Problem"], links = ["",""], server=None)
+set_site_information(author = "Caitlin Cammett", description = "Assignment Tracker to help students stay organized", sources = ["https://chatgpt.com/"], planning = ["Caitlin Cammett CS1 Final Project 1: Design","LLM Documentation", "Caitlin Cammett CS1 Final Project 0: Pick a Problem"], links = ["https://camcait.github.io/Assignment_Tracker_Project/"], server=None)
 
 
 # Stores information about one assignment
