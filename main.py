@@ -90,7 +90,7 @@ returns the assignment page
                     Button(
                         "Mark as Finished",
                         "mark_finished",
-                        [Argument("assignment_index", index)]
+                        Argument("assignment_index", index)
                     )
                 )
 
