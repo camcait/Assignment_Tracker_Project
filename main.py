@@ -10,23 +10,6 @@ set_website_framed(False)
 set_site_information(author = "Caitlin Cammett", description = "Assignment Tracker to help students stay organized", sources = ["https://chatgpt.com/"], planning = ["Caitlin Cammett CS1 Final Project 1: Design","LLM Documentation", "Caitlin Cammett CS1 Final Project 0: Pick a Problem"], links = ["",""], server=None)
 
 
-@dataclass
-class State:
-    pass
-
-
-@route
-def index(state: State) -> Page:
-    return Page(state, ["Hello World!"])
-
-assert_equal(index(State()), Page(State(), ["Hello World!"]))
-
-start_server(State())
-
-from drafter import *
-from dataclasses import dataclass
-
-
 # Stores information about one assignment
 @dataclass
 class Assignment:
